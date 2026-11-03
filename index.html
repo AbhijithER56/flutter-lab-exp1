@@ -3,334 +3,231 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fruit Store – Experiment 1 | Flutter Widgets & Layouts</title>
-  <meta name="description" content="Flutter Lab Experiment 1: Working with Widgets and Layouts – Fruit Store app demonstrating Row, Column, Container, Card, and ListView widgets." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <title>Juicy Basket – Experiment 1 | Flutter Widgets & Layouts</title>
+  <meta name="description" content="Flutter Lab Experiment 1: Working with Widgets and Layouts – Juicy Basket fruit shop demonstrating Row, Column, Container, Card, and ListView widgets." />
   <style>
+    :root {
+      --bg: #1B1430;
+      --surface: #2A2145;
+      --amber: #FFB703;
+      --coral: #FB5607;
+      --soft: #B9B0D6;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Roboto', sans-serif;
-      background: #e8f5e9;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(circle at 20% 10%, #3a2a66, #120c22 70%);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
       padding: 24px 16px;
+      color: #fff;
     }
 
     /* ── Phone shell ── */
     .phone {
       width: 390px;
-      min-height: 844px;
-      background: #f1f8e9;
+      height: 820px;
+      background: var(--bg);
       border-radius: 40px;
-      overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.12);
+      border: 8px solid #0b0716;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
       display: flex;
       flex-direction: column;
-      border: 8px solid #1a1a1a;
-      position: relative;
+      overflow: hidden;
     }
 
-    /* Notch */
-    .phone::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 28px;
-      background: #1a1a1a;
-      border-radius: 0 0 18px 18px;
-      z-index: 10;
-    }
-
-    /* ── AppBar ── */
+    /* ── AppBar (Row) ── */
     .app-bar {
-      background: #2E7D32;
-      color: white;
-      text-align: center;
-      padding: 42px 16px 14px;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      flex-shrink: 0;
-    }
-
-    /* ── Body ── */
-    .body {
-      flex: 1;
       display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    /* ── Experiment Banner (Container + Row + Column) ── */
-    .banner {
-      background: #2E7D32;
-      border-radius: 14px;
-      margin: 14px;
-      padding: 16px;
-      display: flex;           /* Row widget */
       align-items: center;
-      gap: 14px;
-      box-shadow: 0 4px 16px rgba(46,125,50,0.35);
+      justify-content: space-between;
+      padding: 22px 20px 12px;
       flex-shrink: 0;
-      animation: slideDown 0.4s ease;
     }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .banner-icon {
-      font-size: 32px;
-      line-height: 1;
-    }
-
-    .banner-text {
-      display: flex;           /* Column widget */
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .banner-sub {
-      color: rgba(255,255,255,0.7);
-      font-size: 11px;
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-    }
-
-    .banner-title {
-      color: #fff;
-      font-size: 16px;
+    .app-title { font-size: 22px; font-weight: 800; color: var(--amber); letter-spacing: .5px; }
+    .basket-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface);
+      border: 1px solid rgba(255,183,3,.6);
+      border-radius: 20px;
+      padding: 6px 12px;
       font-weight: 700;
+      font-size: 14px;
     }
 
-    /* ── Section Label (Row) ── */
-    .section-label {
-      display: flex;           /* Row widget */
+    /* ── Hero banner (Container + Row + Column) ── */
+    .hero {
+      margin: 4px 16px 12px;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--coral), var(--amber));
+      display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 16px 8px;
+      gap: 10px;
+      box-shadow: 0 8px 16px rgba(251,86,7,.35);
       flex-shrink: 0;
     }
+    .hero-text { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 2px; font-weight: 600; color: rgba(255,255,255,.75); }
+    .hero-title { font-size: 20px; font-weight: 800; line-height: 1.2; }
+    .hero-sub { font-size: 10px; color: rgba(255,255,255,.75); margin-top: 2px; }
+    .hero-emoji { font-size: 54px; line-height: 1; }
 
-    .section-label span {
-      font-size: 14px;
-      font-weight: 600;
-      color: #33691E;
-      letter-spacing: 0.4px;
+    /* ── Section label (Row) ── */
+    .section {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 4px 20px;
+      flex-shrink: 0;
     }
-
-    .section-icon { font-size: 18px; }
+    .section b { font-size: 16px; }
+    .section span { font-size: 12px; color: var(--soft); }
 
     /* ── ListView ── */
-    .list-view {
+    .list {
       flex: 1;
       overflow-y: auto;
-      padding: 0 12px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      padding: 4px 16px 12px;
+      display: flex; flex-direction: column; gap: 12px;
       scrollbar-width: thin;
-      scrollbar-color: #a5d6a7 transparent;
+      scrollbar-color: #4a3d78 transparent;
     }
 
-    .list-view::-webkit-scrollbar { width: 4px; }
-    .list-view::-webkit-scrollbar-thumb { background: #a5d6a7; border-radius: 4px; }
-
-    /* ── FruitCard (Card + Container + Row + Column) ── */
-    .fruit-card {
-      background: var(--card-color);
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;           /* Row widget */
-      align-items: center;
-      gap: 16px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      animation: fadeUp 0.35s ease both;
-      cursor: default;
-    }
-
-    .fruit-card:nth-child(1) { animation-delay: 0.05s; }
-    .fruit-card:nth-child(2) { animation-delay: 0.10s; }
-    .fruit-card:nth-child(3) { animation-delay: 0.15s; }
-    .fruit-card:nth-child(4) { animation-delay: 0.20s; }
-    .fruit-card:nth-child(5) { animation-delay: 0.25s; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .fruit-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
-    }
-
-    /* Emoji circle (Container) */
-    .emoji-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    }
-
-    /* Name + subtitle (Column) */
-    .fruit-info {
-      flex: 1;
-      display: flex;           /* Column widget */
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .fruit-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1B5E20;
-    }
-
-    .fruit-sub {
-      font-size: 12px;
-      color: #388E3C;
-    }
-
-    /* Price badge (Container) */
-    .price-badge {
-      background: #2E7D32;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 12px;
+    /* ── FruitCard (Card + Row + Column) ── */
+    .card {
+      --tint: #fff;
+      background: var(--surface);
       border-radius: 20px;
-      white-space: nowrap;
+      overflow: hidden;
+      display: flex; align-items: center; gap: 14px;
+      min-height: 92px;
+      flex-shrink: 0;
+      transition: transform .18s ease;
+    }
+    .card:hover { transform: translateX(4px); }
+    .stripe { width: 6px; align-self: stretch; background: var(--tint); }
+    .emoji {
+      width: 58px; height: 58px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; flex-shrink: 0;
+      background: color-mix(in srgb, var(--tint) 18%, transparent);
+    }
+    .info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .name { font-size: 17px; font-weight: 700; }
+    .tag { font-size: 12px; color: var(--soft); }
+    .price { font-size: 13px; font-weight: 700; color: var(--amber); margin-top: 4px; }
+
+    /* ── Stepper ── */
+    .stepper { display: flex; align-items: center; gap: 8px; padding-right: 12px; }
+    .qty { font-weight: 700; min-width: 14px; text-align: center; }
+    .btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1.5px solid var(--amber);
+      background: transparent; color: var(--amber);
+      font-size: 18px; line-height: 1; cursor: pointer;
+    }
+    .btn.fill { background: var(--amber); color: var(--bg); }
+    .btn:active { transform: scale(.9); }
+    .hidden { display: none; }
+
+    /* ── Checkout bar (Container + Row) ── */
+    .checkout {
+      background: var(--surface);
+      border-radius: 24px 24px 0 0;
+      padding: 14px 20px 20px;
+      display: flex; justify-content: space-between; align-items: center;
       flex-shrink: 0;
     }
-
-    /* ── Footer ── */
-    .footer {
-      background: #2E7D32;
-      color: rgba(255,255,255,0.75);
-      font-size: 11px;
-      text-align: center;
-      padding: 10px;
-      flex-shrink: 0;
-    }
-
-    /* ── Page label (outside phone) ── */
-    .page-label {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1B5E20;
-      color: #fff;
-      font-family: 'Roboto', sans-serif;
-      font-size: 13px;
-      padding: 6px 18px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      white-space: nowrap;
-      z-index: 100;
-    }
+    .checkout small { display: block; font-size: 11px; color: var(--soft); }
+    .total { font-size: 22px; font-weight: 800; color: var(--amber); }
+    .count { color: var(--soft); font-size: 13px; }
   </style>
 </head>
 <body>
 
-  <div class="page-label">🧪 Flutter Lab · Experiment 1 · Running on localhost</div>
-
   <div class="phone">
-    <!-- AppBar widget -->
-    <div class="app-bar">Fruit Store</div>
+    <!-- AppBar -->
+    <div class="app-bar">
+      <div class="app-title">Juicy Basket</div>
+      <div class="basket-chip">🧺 <span id="chipCount">0</span></div>
+    </div>
 
-    <div class="body">
-
-      <!-- Container + Row + Column (Banner) -->
-      <div class="banner">
-        <div class="banner-icon">🔬</div>
-        <div class="banner-text">
-          <span class="banner-sub">Experiment 1</span>
-          <span class="banner-title">Widgets &amp; Layouts</span>
-        </div>
+    <!-- Hero banner -->
+    <div class="hero">
+      <div class="hero-text">
+        <span class="hero-eyebrow">EXPERIMENT 1</span>
+        <span class="hero-title">Fresh picks,<br />straight to you</span>
+        <span class="hero-sub">Row · Column · Container · Card · ListView</span>
       </div>
+      <div class="hero-emoji">🧺</div>
+    </div>
 
-      <!-- Row (Section Label) -->
-      <div class="section-label">
-        <span class="section-icon">🛒</span>
-        <span>Available Fruits</span>
-      </div>
+    <!-- Section label -->
+    <div class="section"><b>Today's Harvest</b><span id="variety"></span></div>
 
-      <!-- ListView.builder -->
-      <div class="list-view" id="listView">
+    <!-- ListView -->
+    <div class="list" id="list"></div>
 
-        <!-- FruitCard 1 – Apple -->
-        <div class="fruit-card" style="--card-color:#FFEBEE;">
-          <div class="emoji-circle">🍎</div>
-          <div class="fruit-info">
-            <span class="fruit-name">Apple</span>
-            <span class="fruit-sub">Fresh &amp; Organic</span>
-          </div>
-          <div class="price-badge">₹ 80 / kg</div>
-        </div>
-
-        <!-- FruitCard 2 – Banana -->
-        <div class="fruit-card" style="--card-color:#FFFDE7;">
-          <div class="emoji-circle">🍌</div>
-          <div class="fruit-info">
-            <span class="fruit-name">Banana</span>
-            <span class="fruit-sub">Fresh &amp; Organic</span>
-          </div>
-          <div class="price-badge">₹ 40 / dozen</div>
-        </div>
-
-        <!-- FruitCard 3 – Mango -->
-        <div class="fruit-card" style="--card-color:#FFF8E1;">
-          <div class="emoji-circle">🥭</div>
-          <div class="fruit-info">
-            <span class="fruit-name">Mango</span>
-            <span class="fruit-sub">Fresh &amp; Organic</span>
-          </div>
-          <div class="price-badge">₹ 120 / kg</div>
-        </div>
-
-        <!-- FruitCard 4 – Orange -->
-        <div class="fruit-card" style="--card-color:#FFF3E0;">
-          <div class="emoji-circle">🍊</div>
-          <div class="fruit-info">
-            <span class="fruit-name">Orange</span>
-            <span class="fruit-sub">Fresh &amp; Organic</span>
-          </div>
-          <div class="price-badge">₹ 60 / kg</div>
-        </div>
-
-        <!-- FruitCard 5 – Grapes -->
-        <div class="fruit-card" style="--card-color:#F3E5F5;">
-          <div class="emoji-circle">🍇</div>
-          <div class="fruit-info">
-            <span class="fruit-name">Grapes</span>
-            <span class="fruit-sub">Fresh &amp; Organic</span>
-          </div>
-          <div class="price-badge">₹ 90 / kg</div>
-        </div>
-
-      </div>
-      <!-- end ListView -->
-
-      <!-- Footer -->
-      <div class="footer">Flutter Lab Experiment &nbsp;•&nbsp; Widgets &amp; Layouts</div>
+    <!-- Checkout bar -->
+    <div class="checkout">
+      <div><small>Basket total</small><div class="total">₹ <span id="total">0</span></div></div>
+      <div class="count"><span id="count">0 items</span></div>
     </div>
   </div>
 
+  <script>
+    const fruits = [
+      { emoji: '🍎', name: 'Apple',      tag: 'Crisp & juicy',      price: 80,  unit: 'kg',    tint: '#EF476F' },
+      { emoji: '🍌', name: 'Banana',     tag: 'Rich in potassium',  price: 40,  unit: 'dozen', tint: '#FFD166' },
+      { emoji: '🥭', name: 'Mango',      tag: 'King of fruits',     price: 120, unit: 'kg',    tint: '#FF9F1C' },
+      { emoji: '🍊', name: 'Orange',     tag: 'Full of vitamin C',  price: 60,  unit: 'kg',    tint: '#FB5607' },
+      { emoji: '🍇', name: 'Grapes',     tag: 'Sweet & seedless',   price: 90,  unit: 'kg',    tint: '#B388EB' },
+      { emoji: '🍓', name: 'Strawberry', tag: 'Hand-picked daily',  price: 150, unit: 'box',   tint: '#FF5D8F' },
+    ];
+    const qty = fruits.map(() => 0);
+    const list = document.getElementById('list');
+
+    document.getElementById('variety').textContent = fruits.length + ' varieties';
+
+    fruits.forEach((f, i) => {
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.style.setProperty('--tint', f.tint);
+      el.innerHTML = `
+        <div class="stripe"></div>
+        <div class="emoji">${f.emoji}</div>
+        <div class="info">
+          <span class="name">${f.name}</span>
+          <span class="tag">${f.tag}</span>
+          <span class="price">₹ ${f.price} / ${f.unit}</span>
+        </div>
+        <div class="stepper">
+          <button class="btn minus hidden">−</button>
+          <span class="qty hidden">0</span>
+          <button class="btn fill plus">+</button>
+        </div>`;
+      const minus = el.querySelector('.minus');
+      const q = el.querySelector('.qty');
+      el.querySelector('.plus').onclick = () => change(1);
+      minus.onclick = () => change(-1);
+      function change(d) {
+        qty[i] = Math.max(0, Math.min(99, qty[i] + d));
+        q.textContent = qty[i];
+        minus.classList.toggle('hidden', qty[i] === 0);
+        q.classList.toggle('hidden', qty[i] === 0);
+        update();
+      }
+      list.appendChild(el);
+    });
+
+    function update() {
+      const items = qty.reduce((a, b) => a + b, 0);
+      const total = qty.reduce((s, n, i) => s + n * fruits[i].price, 0);
+      document.getElementById('chipCount').textContent = items;
+      document.getElementById('total').textContent = total;
+      document.getElementById('count').textContent = items + (items === 1 ? ' item' : ' items');
+    }
+  </script>
 </body>
 </html>
